@@ -17,23 +17,16 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    public static void server(int port) {
+    public static void server(int port, String directory) throws IOException {
         ServerSocket server = new ServerSocket(port);
         ExecutorService threadPool= Executors.newFixedThreadPool(3);
         while (true){
             Socket socket= server.accept();
-            HttpClientConnection worker = new HttpClientConnection(socket, null);
+            HttpClientConnection worker = new HttpClientConnection(socket, directory);
             threadPool.submit(worker);
         }
     }
 
-    public void server()
-
-    
-        
-
-
-        
     }
     
-}
+

@@ -23,7 +23,6 @@ public class Main{
     public static String command1;
     public static String command2;
         
-    }
 
     public static void main(String[] args) throws IOException {
         command1 = args[0];
@@ -33,15 +32,15 @@ public class Main{
 
         if("".equals(command1) && "".equals(command2)){
                 port = 3000;
-                directory = "static";
+                directory = "src\\main\\java\\httpserver\\static";
         }
         else if ("port".equals(command1)){
             port = 3000;
-            directory = "static";
+            directory = "src\\main\\java\\httpserver\\static";
             }
         else if ("port".equals(command1) && null != args[1]){
             port = Integer.parseInt(portstring);
-            directory = "static";
+            directory = "src\\main\\java\\httpserver\\static";
         }else if ("docRoot".equals(command1)){
             port = 3000;
             directory = args[3];
@@ -60,8 +59,4 @@ public class Main{
             
 
         }
-
-        Server.server(port,directory);
-
-    }
   }

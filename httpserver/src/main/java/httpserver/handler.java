@@ -2,16 +2,18 @@ package httpserver;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import javax.lang.model.type.UnknownTypeException;
 
 public class handler{
 
-    public static Boolean checkdirectoryExist(File directory) throws IOException {
+    /*public static Boolean checkdirectoryExist(File directory) throws IOException {
         Boolean isthere = false;
         for (File file:directory.listFiles()){
             if(file.exists())
@@ -27,6 +29,11 @@ public class handler{
                 System.out.println("no file exist");}
             }
         return isthere;
+    }*/
+
+    public static void serverClose() {
+
+        
     }
 
     public String checkFileExists(File directoryfolder, String resource) throws IOException {
@@ -34,23 +41,44 @@ public class handler{
         for (File file:directoryfolder.listFiles()){
             if(!file.equals(resource)){
                 msg = resource + "not found \r\n";
-            return msg;
+            return resource;
             }
             else
             System.out.println("file exists");
                 if(file.getName().contains(".png")){
-                    msg = "Content-Type image/png\r\n" + "resource contents as bytes" ; 
-                return msg;
+                    System.out.println("Content-Type image/png\r\n");
+                    return resource;
                 }
                 else{
-                    msg = "resource contents as bytes";
-                    return msg;
+                    return resource;
                 }
         }
-        return msg;
+        return resource;
     }
 
+    public byte[] writefile(String resource) throws IOException {
+        int size = 0;
+        byte[] buffer = new byte[1024];
+        InputStream is = new FileInputStream(resource);
+        FileOutputStream os = new FileOutputStream(resource);
+        while (-1 != (size = is.read(buffer)))
+        os.write(buffer,0,size);
+
+        os.flush();
+        os.close();
+        is.close();
+
+        return buffer;
+
+        
+    }
+
+
+ 
+
 }
+
+
 
 
     

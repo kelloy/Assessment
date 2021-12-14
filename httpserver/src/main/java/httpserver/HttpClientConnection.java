@@ -35,7 +35,7 @@ public class HttpClientConnection implements Runnable{
           DataInputStream dis = new DataInputStream(bis);
           BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
           String line = "";
-          String msg = "";
+          byte[] msg = new byte[1024];
           String[] linesplit;
 
         while (!line.equals("close")){
@@ -46,8 +46,9 @@ public class HttpClientConnection implements Runnable{
             String resource = linesplit[1];
             String command = linesplit[0];
             if (command.equals("GET")){
-                msg = handler.checkFileExists(directoryfolder, resource);
-                dos.writeUTF(msg);
+                handler.checkFileExists(directoryfolder, resource);
+                msg = handler.writefile(resource);
+                dos.write(msg);
                 dos.flush();}
             else{
                 System.out.println(line + "not supported\r\n");

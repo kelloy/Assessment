@@ -31,12 +31,30 @@ public class Main{
         directory = args[3];
         command2 = args[2];
 
-        if("port".equals(command1) && "".equals(command2)){
-            if(portstring.equals("")){
+        if("".equals(command1) && "".equals(command2)){
                 port = 3000;
-                directory = args[3];
+                directory = "static";
+        }
+        else if ("port".equals(command1)){
+            port = 3000;
+            directory = "static";
             }
-            else(portstring.equals(arg[1]))
+        else if ("port".equals(command1) && null != args[1]){
+            port = Integer.parseInt(portstring);
+            directory = "static";
+        }else if ("docRoot".equals(command1)){
+            port = 3000;
+            directory = args[3];
+        }else if ("docRoot".equals(command1) && null !=args[3]){
+            port = 3000;
+            directory = args[3];
+        }else if ("port".equals(command1) && ("docRoot").equals(command2)){
+            port = Integer.parseInt(args[1]);
+            directory = args[3];
+        }
+
+        Server.server(port,directory);
+
 
 
             

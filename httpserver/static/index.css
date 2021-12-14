@@ -1,0 +1,18 @@
+img {
+    display: block;
+    height: 50vh;
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-right:auto;
+    margin-left:auto;
+    height: 100vh;
+}
+
+h1{
+    text-align: center;
+}

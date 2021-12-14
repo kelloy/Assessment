@@ -19,6 +19,7 @@ public class Server {
 
     public static void server(int port, String directory) throws IOException {
         ServerSocket server = new ServerSocket(port);
+        System.out.println("connected");
         ExecutorService threadPool= Executors.newFixedThreadPool(3);
         while (true){
             Socket socket= server.accept();

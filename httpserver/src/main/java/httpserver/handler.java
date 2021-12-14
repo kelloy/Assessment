@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.lang.model.type.UnknownTypeException;
 
@@ -36,31 +38,26 @@ public class handler{
         
     }
 
-    public String checkFileExists(File directoryfolder, String resource) throws IOException {
-        String msg = "";
+    public boolean checkFileExists(File directoryfolder, File filetocheck) throws IOException {
+        Boolean fileexist = false;
         for (File file:directoryfolder.listFiles()){
-            if(!file.equals(resource)){
-                msg = resource + "not found \r\n";
-            return resource;
+            if(file.equals(filetocheck)){
+                return fileexist = false;
             }
-            else
-            System.out.println("file exists");
-                if(file.getName().contains(".png")){
-                    System.out.println("Content-Type image/png\r\n");
-                    return resource;
-                }
-                else{
-                    return resource;
-                }
+            else{
+                return fileexist =true;
+            }
         }
-        return resource;
-    }
+        return fileexist;
+        }
 
-    public byte[] writefile(String resource) throws IOException {
+
+
+    public byte[] writefile(File file) throws IOException {
         int size = 0;
         byte[] buffer = new byte[1024];
-        InputStream is = new FileInputStream(resource);
-        FileOutputStream os = new FileOutputStream(resource);
+        FileInputStream is = new FileInputStream(file);
+        FileOutputStream os = new FileOutputStream(file);
         while (-1 != (size = is.read(buffer)))
         os.write(buffer,0,size);
 

@@ -10,8 +10,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 import javax.print.Doc;
 
@@ -22,41 +27,25 @@ public class Main{
     public static String portstring;
     public static String command1;
     public static String command2;
-        
-
     public static void main(String[] args) throws IOException {
-        command1 = args[0];
-        portstring = args[1];
-        directory = args[3];
-        command2 = args[2];
+        int port = 3000;
+        List<String> arguments = Arrays.asList(args);
 
-        if("".equals(command1) && "".equals(command2)){
-                port = 3000;
-                directory = "src\\main\\java\\httpserver\\static";
+        if(arguments.contains("--port")){
+            port = Integer.parseInt(arguments.get(2));
+            directory = "src\\main\\java\\httpserver\\static";
         }
-        else if ("port".equals(command1)){
+        else if (arguments.contains("--docRoot")){
+            port = 3000;
+            directory = arguments.get(2);
+        }else if(arguments.contains("--port") && arguments.contains("--docRoot")){
+            port = Integer.parseInt(arguments.get(2));
+            directory = arguments.get(4);
+        }else{
             port = 3000;
             directory = "src\\main\\java\\httpserver\\static";
-            }
-        else if ("port".equals(command1) && null != args[1]){
-            port = Integer.parseInt(portstring);
-            directory = "src\\main\\java\\httpserver\\static";
-        }else if ("docRoot".equals(command1)){
-            port = 3000;
-            directory = args[3];
-        }else if ("docRoot".equals(command1) && null !=args[3]){
-            port = 3000;
-            directory = args[3];
-        }else if ("port".equals(command1) && ("docRoot").equals(command2)){
-            port = Integer.parseInt(args[1]);
-            directory = args[3];
         }
-
+        
         Server.server(port,directory);
-
-
-
-            
-
-        }
-  }
+}
+}

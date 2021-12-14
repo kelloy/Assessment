@@ -44,13 +44,23 @@ public class HttpClientConnection implements Runnable{
             Path directorypath = Paths.get(directory);
             File directoryfolder = directorypath.toFile();
             String resource = linesplit[1];
+            Path filepath = Paths.get(resource);
+            File filetocheck = filepath.toFile();
+            Boolean fileexist;
             String command = linesplit[0];
             if (command.equals("GET")){
-                handler.checkFileExists(directoryfolder, resource);
-                msg = handler.writefile(resource);
+                fileexist = handler.checkFileExists(directoryfolder, filetocheck);
+                if(fileexist == true){
+                System.out.println("HTTP/1.1 200 OK\r\n");
+                msg = handler.writefile(filetocheck);
                 dos.write(msg);
-                dos.flush();}
-            else{
+                dos.flush();
+                dos.close();
+                }else{
+                    System.out.println("File does not exist");
+                    dos.close();   
+                }
+            }else{
                 System.out.println(line + "not supported\r\n");
             }
             dis.readUTF();

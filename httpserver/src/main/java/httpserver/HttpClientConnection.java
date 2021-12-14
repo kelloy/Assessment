@@ -67,6 +67,9 @@ public class HttpClientConnection implements Runnable{
         }
         dis.close();
         socket.close();
+        br.close();
+        os.close();
+        dos.close();
     } catch (IOException e) {
         e.printStackTrace();
     }

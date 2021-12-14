@@ -1,0 +1,6 @@
+httpserver\Server.class
+httpserver\arguments.class
+httpserver\HttpClientConnection.class
+httpserver\App.class
+httpserver\handler.class
+httpserver\Main.class
